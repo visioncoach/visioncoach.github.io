@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners -->
+  <meta name="description" content="VisionCoach: Reinforcing Grounded Video Reasoning via Visual-Perception Prompting">
+  <meta property="og:title" content="VisionCoach: Reinforcing Grounded Video Reasoning via Visual-Perception Prompting"/>
+  <meta property="og:description" content="Input-adaptive RL framework that improves spatio-temporal grounding through visual prompting as training-time guidance for video reasoning."/>
+  <meta property="og:url" content="https://visioncoach.github.io/"/>
+  <meta property="og:image" content="img/icon.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <meta name="twitter:title" content="VisionCoach: Reinforcing Grounded Video Reasoning via Visual-Perception Prompting">
+  <meta name="twitter:description" content="Input-adaptive RL framework that improves spatio-temporal grounding through visual prompting as training-time guidance for video reasoning.">
+  <meta name="twitter:image" content="img/icon.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="video reasoning, reinforcement learning, visual prompting, spatio-temporal grounding, VLM">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>VisionCoach</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+  <link rel="stylesheet" href="./static/css/twentytwenty.css">
+  <style>
+    body, html {
+      font-family: 'Sora', sans-serif !important;
+      font-weight: 500 !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Sora', sans-serif !important;
+      font-weight: 700 !important;
+    }
+
+    p, span, a, li, td, th, div {
+      font-family: 'Sora', sans-serif !important;
+      font-weight: 500 !important;
+    }
+
+    .custom-slider-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .custom-slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .custom-slide {
+        min-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .task-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 10px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .task-card.past {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    }
+
+    .task-card.present {
+        background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+    }
+
+    .task-card.proactive {
+        background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+    }
+
+    .contribution-box {
+        background: #f5f5f5;
+        border-left: 4px solid #667eea;
+        padding: 15px 20px;
+        margin: 10px 0;
+        border-radius: 0 10px 10px 0;
+    }
+
+    .benchmark-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+    }
+
+    .benchmark-table th, .benchmark-table td {
+        border: 1px solid #ddd;
+        padding: 12px 8px;
+        text-align: center;
+    }
+
+    .benchmark-table th {
+        background-color: #667eea;
+        color: white;
+    }
+
+    .benchmark-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .benchmark-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .highlight-row {
+        background-color: #e8f4fd !important;
+        font-weight: bold;
+    }
+
+    .text-with-margin {
+      margin-top: 10px;
+      margin-bottom: 50px;
+    }
+
+    .gaze-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #00c853, #ffeb3b, #ff4081) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      font-family: 'Sora', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 1.15em !important;
+      letter-spacing: 0.5px !important;
+      display: inline-block !important;
+    }
+
+    .publication-title {
+      font-family: 'Sora', sans-serif !important;
+      font-weight: 600 !important;
+    }
+
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <!-- title -->
+            <h1 class="title is-3 publication-title">
+              <span class="gradient-text">VisionCoach</span>: Reinforcing Grounded Video<br>
+              Reasoning via Visual-Perception Prompting
+            </h1>
+            
+            <!-- authors -->
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://daeunni.github.io/" target="_blank">Daeun Lee</a>,
+              </span> &nbsp;
+              <span class="author-block">
+                <a href="#" target="_blank">Shoubin Yu</a>,
+              </span> &nbsp;
+              <span class="author-block">
+                <a href="#" target="_blank">Yue Zhang</a>,
+              </span> &nbsp;
+              <span class="author-block">
+                <a href="https://www.cs.unc.edu/~mbansal/" target="_blank">Mohit Bansal</a>
+              </span>
+            </div>
+            
+            <!-- affiliations -->
+            <div class="is-size-5 publication-authors" style="margin-top:10px;">
+              <span class="author-block">University of North Carolina, Chapel Hill</span><br>
+              <span class="author-block" style="font-size: 0.9em; color: #666;">{daeun, shoubin, yuezhan, mbansal}@cs.unc.edu</span>
+            </div>
+
+            <!-- Paper link -->
+            <div style="margin-top: 20px;">
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <!-- Code link -->
+              <span class="link-block">
+                <a href="#" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+              <!-- Project page link -->
+              <span class="link-block">
+                <a href="https://visioncoach.github.io/" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-globe"></i>
+                  </span>
+                  <span>Project page</span>
+                </a>
+              </span>
+
+              <!-- Model link -->
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-cube"></i>
+                  </span>
+                  <span>Model</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TLDR -->
+  <section class="section" style="padding: 1.5rem 1.5rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div style="background: linear-gradient(135deg, #667eea22 0%, #764ba222 100%); border-radius: 15px; padding: 25px 30px; border-left: 5px solid #667eea;">
+            <h3 style="margin-bottom: 15px; font-size: 1.3rem;">📌 TL;DR</h3>
+            <p style="font-size: 17px; margin: 0; line-height: 1.6;">
+              <b>VisionCoach</b> is an input-adaptive RL framework that improves spatio-temporal grounding in video reasoning through training-time visual prompting. 
+              Visual prompts are selectively applied to challenging inputs to amplify question-relevant evidence and suppress distractors, 
+              enabling grounded reasoning directly on raw videos without external tools at inference.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Video -->
+  <div class="container is-max-desktop" style="margin-top: 20px;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <video id="demo-video" width="100%" autoplay loop muted playsinline controls style="border-radius: 10px;">
+          <source src="video_test.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p style="font-size:18px;">
+              Video reasoning requires models to locate and track question-relevant evidence across frames. 
+              While reinforcement learning (RL) with verifiable rewards improves accuracy, it still struggles to achieve <b>reliable spatio-temporal grounding</b> during the reasoning process. 
+              Moreover, improving grounding typically relies on scaled training data or inference-time perception tools, which increases annotation cost or computational cost. 
+              To address this challenge, we propose <b>VisionCoach</b>, an input-adaptive RL framework that improves spatio-temporal grounding through <b>visual prompting as training-time guidance</b>. 
+              During RL training, visual prompts are selectively applied to challenging inputs to amplify question-relevant evidence and suppress distractors. 
+              The model then internalizes these improvements through <b>self-distillation</b>, enabling grounded reasoning directly on raw videos without visual prompting at inference. 
+              VisionCoach consists of two components: (1) <b>Visual Prompt Selector</b>, which predicts appropriate prompt types conditioned on the video and question, and (2) <b>Spatio-Temporal Reasoner</b>, optimized with RL under visual prompt guidance and object-aware grounding rewards that enforce object identity consistency and multi-region bounding-box IoU. 
+              Extensive experiments demonstrate that VisionCoach achieves <b>state-of-the-art performance</b> across diverse video reasoning, video understanding, and temporal grounding benchmarks (V-STAR, VideoMME, World-Sense, VideoMMMU, PerceptionTest, and Charades-STA), while maintaining a single efficient inference pathway without external tools.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+  <!-- Framework Overview -->
+
+  <section class="section hero">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h3 class="title is-3">🔧 VisionCoach Framework</h3>
+          <p style="font-size:18px; margin-bottom:30px;">
+            VisionCoach consists of two core components in an input-adaptive RL framework.
+          </p>
+          <div class="columns">
+            <div class="column">
+              <div class="task-card past">
+                <div class="gaze-icon">🎯</div>
+                <h4 class="title is-5" style="color:white;">Visual Prompt Selector</h4>
+                <ul style="text-align:left; font-size:14px;">
+                  <li>Predicts appropriate prompt types conditioned on video and question</li>
+                  <li>Selectively applies visual prompts to challenging inputs</li>
+                  <li>Amplifies question-relevant evidence, suppresses distractors</li>
+                </ul>
+              </div>
+            </div>
+            <div class="column">
+              <div class="task-card present">
+                <div class="gaze-icon">🧠</div>
+                <h4 class="title is-5" style="color:white;">Spatio-Temporal Reasoner</h4>
+                <ul style="text-align:left; font-size:14px;">
+                  <li>Optimized with RL under visual prompt guidance</li>
+                  <li>Object identity consistency reward</li>
+                  <li>Multi-region bounding-box IoU reward</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Framework Overview -->
+
+
+  <!-- Contributions -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h3 class="title is-3">🎯 Key Contributions</h3>
+          <div class="content has-text-left">
+            
+            <div class="contribution-box">
+              <p style="font-size:17px; margin:0;">
+                <b>1. Training-Time Visual Prompting</b><br>
+                Visual prompts are selectively applied during training and internalized via self-distillation, enabling grounded reasoning on raw videos without external tools at inference.
+              </p>
+            </div>
+            
+            <div class="contribution-box">
+              <p style="font-size:17px; margin:0;">
+                <b>2. Input-Adaptive RL Framework</b><br>
+                We propose an input-adaptive RL framework with Visual Prompt Selector and Spatio-Temporal Reasoner, applying visual guidance only to challenging inputs and strengthening spatio-temporal grounding with object-aware grounding rewards.
+              </p>
+            </div>
+            
+            <div class="contribution-box">
+              <p style="font-size:17px; margin:0;">
+                <b>3. SOTA Performance with Efficient Inference</b><br>
+                VisionCoach achieves state-of-the-art performance across diverse video reasoning, understanding, and temporal grounding benchmarks (V-STAR, VideoMME, World-Sense, VideoMMMU, PerceptionTest, Charades-STA) while maintaining a single efficient inference pathway without external tools.
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Contributions -->
+
+
+  <!-- Method -->
+  <section class="section hero">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h3 class="title is-3">🔧 Method Overview</h3>
+          <div class="content has-text-justified">
+            <p style="font-size:18px; margin-top:20px;">
+              VisionCoach training pipeline:
+              <br><br>
+              <b>(1) Visual Prompt Selector:</b> Takes video and question as input to predict appropriate visual prompt types. Applies prompts selectively only to challenging inputs.
+              <br><br>
+              <b>(2) Spatio-Temporal Reasoner:</b> Optimized with RL under visual prompt guidance, using object identity consistency and multi-region bounding-box IoU as rewards.
+              <br><br>
+              <b>(3) Self-Distillation:</b> The model internalizes improved reasoning from visual prompts, enabling grounded reasoning on raw videos without external tools at inference.
+            </p>      
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Method -->
+
+
+  <!-- Benchmarks -->
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop" style="margin-top:5px;">
+        <div class="section-title has-text-centered">
+          <h2 class="title is-3">📈 Benchmarks</h2>
+        </div>
+        
+        <p style="font-size:18px; text-align:center; margin-bottom:20px;">
+          VisionCoach achieves state-of-the-art performance across diverse video reasoning, understanding, and temporal grounding benchmarks.
+        </p>
+
+        <p style="text-align: center; font-size: 17px;">
+          <span class="tag is-primary is-medium" style="margin: 5px;">V-STAR</span>
+          <span class="tag is-primary is-medium" style="margin: 5px;">VideoMME</span>
+          <span class="tag is-primary is-medium" style="margin: 5px;">World-Sense</span>
+          <span class="tag is-primary is-medium" style="margin: 5px;">VideoMMMU</span>
+          <span class="tag is-primary is-medium" style="margin: 5px;">PerceptionTest</span>
+          <span class="tag is-primary is-medium" style="margin: 5px;">Charades-STA</span>
+        </p>
+        
+        <p class="text-with-margin" style="font-size:16px; text-align:center; color:#666;">
+          Achieves SOTA performance while maintaining a <b>single efficient inference pathway</b> without external tools.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Main Results -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop" style="margin-top:5px;">
+        <div class="section-title has-text-centered">
+          <h2 class="title is-3">📊 Main Results</h2>
+        </div>
+           
+        <p class="text-with-margin" style="font-size:18px;">
+          VisionCoach achieves <b>state-of-the-art performance</b> across diverse benchmarks including V-STAR, VideoMME, World-Sense, VideoMMMU, PerceptionTest, and Charades-STA.
+          <br><br>
+          Key results:
+          <br>• Improved spatio-temporal grounding via training-time visual prompting
+          <br>• No external tools at inference through self-distillation
+          <br>• Enhanced object identity consistency and IoU via object-aware grounding rewards
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- BibTeX citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{lee2025visioncoach,
+  title={VisionCoach: Reinforcing Grounded Video Reasoning via Visual-Perception Prompting},
+  author={Daeun Lee and Shoubin Yu and Yue Zhang and Mohit Bansal},
+  journal={arXiv preprint},
+  year={2026},
+  note={University of North Carolina, Chapel Hill}
+}</code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/jquery.event.move.js"></script>
+  <script src="./static/js/jquery.twentytwenty.js"></script>
+  <script>
+  $(function(){
+    $(".twentytwenty-container").twentytwenty({
+      default_offset_pct: 0.5,
+      orientation: 'horizontal'
+    });
+  });
+  </script>
+
+</body>
+</html>
+
