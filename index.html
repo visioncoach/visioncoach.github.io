@@ -398,6 +398,16 @@
               <b>(3) Self-Distillation:</b> The model internalizes improved reasoning from visual prompts, enabling grounded reasoning on raw videos without external tools at inference.
             </p>      
           </div>
+
+          <div class="content has-text-centered" style="margin-top: 10px;">
+            <div class="item pd-image" style="margin-bottom: 20px;">
+              <img src="img/method.png" alt="Overall method overview" style="width:100%; max-width:900px;">
+            </div>
+            <div class="item pd-image">
+              <img src="img/algo.png" alt="Reinforcement learning and visual prompting algorithm" style="width:100%; max-width:900px;">
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -455,6 +465,78 @@
   </section>
 
 
+  <!-- Results -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">📊 Results</h2>
+
+          <div class="content">
+            <div class="item pd-image" style="margin-bottom: 25px;">
+              <img src="img/table1.png" alt="Performance on V-STAR benchmark" style="width:100%; max-width:900px;">
+              <p style="font-size:15px; color:#666; margin-top:8px;">
+                <b>Table 1.</b> Performance on the V-STAR benchmark. VisionCoach achieves strong spatio-temporal reasoning across overall dimensions.
+              </p>
+            </div>
+
+            <div class="item pd-image" style="margin-bottom: 25px;">
+              <img src="img/table2.png" alt="Performance on general video benchmarks" style="width:100%; max-width:900px;">
+              <p style="font-size:15px; color:#666; margin-top:8px;">
+                <b>Table 2.</b> Performance across different general video understanding and reasoning benchmarks. * indicates our implementation performance.
+              </p>
+            </div>
+
+            <div class="item pd-image" style="margin-bottom: 10px;">
+              <img src="img/inf.png" alt="Inference efficiency comparison" style="width:100%; max-width:650px; margin: 0 auto;">
+              <p style="font-size:15px; color:#666; margin-top:8px;">
+                <b>Figure.</b> Inference efficiency comparison. VisionCoach consistently outperforms both text-centric (Qwen2.5-VL, Video-R1) and tool-calling (EgoR1, LongVT-RL) baselines, while operating at substantially lower inference latency than external tool-based approaches.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analysis -->
+  <section class="section hero">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 has-text-centered">📈 Analysis</h2>
+
+          <div class="content has-text-justified">
+            <p style="font-size:18px; margin-bottom:25px;">
+              VisionCoach delivers strong spatio-temporal reasoning on the V-STAR benchmark, achieves competitive performance across diverse general video understanding and reasoning benchmarks, and provides robust zero-shot temporal grounding on Charades-STA. Spatio-temporal attention visualizations show that training-time visual prompting sharpens grounding both temporally—by focusing attention on the correct key frames—and spatially—by concentrating on regions corresponding to queried visual attributes while suppressing irrelevant areas. Inference-time comparisons further reveal that VisionCoach consistently outperforms both text-centric and tool-calling baselines while operating at substantially lower latency than external tool-based approaches. Finally, statistics of its adaptive visual prompting mechanism indicate that a large portion of samples are identified as hard, and that dynamically selected visual prompts for these hard cases reliably yield substantial reward gains, confirming that adaptive visual prompting provides effective guidance and rich training signals for challenging instances.
+            </p>
+          </div>
+
+          <div class="columns is-multiline">
+            <div class="column is-full">
+              <div class="item pd-image" style="margin-bottom: 25px; text-align:center;">
+                <img src="img/attn.png" alt="Spatio-temporal attention visualization" style="width:100%; max-width:900px;">
+                <p style="font-size:15px; color:#666; margin-top:8px; text-align:left;">
+                  <b>Spatio-temporal attention map.</b> Visual prompting (VP) improves grounding in both temporal and spatial dimensions. The green box indicates the key frame, while the red box highlights the corresponding spatial region. Temporally, VP increases attention on the correct key frame containing the cowboy. Spatially, VP concentrates attention on the region corresponding to the queried visual attributes (e.g., the cowboy wearing specific clothing), while suppressing irrelevant regions.
+                </p>
+              </div>
+            </div>
+
+            <div class="column is-full">
+              <div class="item pd-image" style="margin-bottom: 10px; text-align:center;">
+                <img src="img/qual.png" alt="Statistics of adaptive visual prompting" style="width:100%; max-width:900px;">
+                <p style="font-size:15px; color:#666; margin-top:8px; text-align:left;">
+                  <b>Statistics of adaptive visual prompting.</b> We analyze the distribution of designated sample difficulty (Easy vs. Hard), the visual prompts selected for hard samples by VP-SELECTOR, and the resulting reward gain from each prompt. 58% of samples are identified as hard, and for these hard instances VP-SELECTOR dynamically chooses among multiple visual prompting types. Applying these prompts consistently leads to reward improvements, with gains ranging from +56% to +66% across prompt types, indicating that adaptive visual prompting provides effective guidance and meaningful training signals on challenging examples.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <!-- BibTeX citation -->
