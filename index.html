@@ -238,6 +238,18 @@
     </div>
   </section>
 
+  <!-- Demo Video -->
+  <div class="container is-max-desktop" style="margin-top: 20px;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <video id="demo-video" width="100%" autoplay loop muted playsinline controls style="border-radius: 10px;">
+          <source src="video_test.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+
   <!-- TLDR -->
   <section class="section" style="padding: 1.5rem 1.5rem;">
     <div class="container is-max-desktop">
@@ -255,18 +267,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Demo Video -->
-  <div class="container is-max-desktop" style="margin-top: 20px;">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <video id="demo-video" width="100%" autoplay loop muted playsinline controls style="border-radius: 10px;">
-          <source src="video_test.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
-  </div>
 
   <!-- Paper abstract -->
   <section class="section hero is-light">
@@ -293,82 +293,7 @@
   <!-- End paper abstract -->
 
 
-  <!-- Framework Overview -->
-
-  <section class="section hero">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h3 class="title is-3">🔧 VisionCoach Framework</h3>
-          <p style="font-size:18px; margin-bottom:30px;">
-            VisionCoach consists of two core components in an input-adaptive RL framework.
-          </p>
-          <div class="columns">
-            <div class="column">
-              <div class="task-card past">
-                <div class="gaze-icon">🎯</div>
-                <h4 class="title is-5" style="color:white;">Visual Prompt Selector</h4>
-                <ul style="text-align:left; font-size:14px;">
-                  <li>Predicts appropriate prompt types conditioned on video and question</li>
-                  <li>Selectively applies visual prompts to challenging inputs</li>
-                  <li>Amplifies question-relevant evidence, suppresses distractors</li>
-                </ul>
-              </div>
-            </div>
-            <div class="column">
-              <div class="task-card present">
-                <div class="gaze-icon">🧠</div>
-                <h4 class="title is-5" style="color:white;">Spatio-Temporal Reasoner</h4>
-                <ul style="text-align:left; font-size:14px;">
-                  <li>Optimized with RL under visual prompt guidance</li>
-                  <li>Object identity consistency reward</li>
-                  <li>Multi-region bounding-box IoU reward</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Framework Overview -->
-
-
-  <!-- Contributions -->
-  <section class="section hero is-light">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h3 class="title is-3">🎯 Key Contributions</h3>
-          <div class="content has-text-left">
-            
-            <div class="contribution-box">
-              <p style="font-size:17px; margin:0;">
-                <b>1. Training-Time Visual Prompting</b><br>
-                Visual prompts are selectively applied during training and internalized via self-distillation, enabling grounded reasoning on raw videos without external tools at inference.
-              </p>
-            </div>
-            
-            <div class="contribution-box">
-              <p style="font-size:17px; margin:0;">
-                <b>2. Input-Adaptive RL Framework</b><br>
-                We propose an input-adaptive RL framework with Visual Prompt Selector and Spatio-Temporal Reasoner, applying visual guidance only to challenging inputs and strengthening spatio-temporal grounding with object-aware grounding rewards.
-              </p>
-            </div>
-            
-            <div class="contribution-box">
-              <p style="font-size:17px; margin:0;">
-                <b>3. SOTA Performance with Efficient Inference</b><br>
-                VisionCoach achieves state-of-the-art performance across diverse video reasoning, understanding, and temporal grounding benchmarks (V-STAR, VideoMME, World-Sense, VideoMMMU, PerceptionTest, Charades-STA) while maintaining a single efficient inference pathway without external tools.
-              </p>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Contributions -->
+  <!-- Framework Overview & Contributions removed to avoid repetition -->
 
 
   <!-- Method -->
@@ -405,35 +330,6 @@
   <!-- End Method -->
 
 
-  <!-- Benchmarks -->
-  <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container is-max-desktop" style="margin-top:5px;">
-        <div class="section-title has-text-centered">
-          <h2 class="title is-3">📈 Benchmarks</h2>
-        </div>
-        
-        <p style="font-size:18px; text-align:center; margin-bottom:20px;">
-          VisionCoach achieves state-of-the-art performance across diverse video reasoning, understanding, and temporal grounding benchmarks.
-        </p>
-
-        <p style="text-align: center; font-size: 17px;">
-          <span class="tag is-primary is-medium" style="margin: 5px;">V-STAR</span>
-          <span class="tag is-primary is-medium" style="margin: 5px;">VideoMME</span>
-          <span class="tag is-primary is-medium" style="margin: 5px;">World-Sense</span>
-          <span class="tag is-primary is-medium" style="margin: 5px;">VideoMMMU</span>
-          <span class="tag is-primary is-medium" style="margin: 5px;">PerceptionTest</span>
-          <span class="tag is-primary is-medium" style="margin: 5px;">Charades-STA</span>
-        </p>
-        
-        <p class="text-with-margin" style="font-size:16px; text-align:center; color:#666;">
-          Achieves SOTA performance while maintaining a <b>single efficient inference pathway</b> without external tools.
-        </p>
-      </div>
-    </div>
-  </section>
-
-
   <!-- Main Results -->
   <section class="hero is-small">
     <div class="hero-body">
@@ -463,6 +359,7 @@
           <h2 class="title is-3">📊 Results</h2>
 
           <div class="content">
+            <h4 class="title is-4" style="margin-bottom: 10px;">V-STAR (Spatio-Temporal Reasoning)</h4>
             <div class="item pd-image" style="margin-bottom: 25px;">
               <img src="img/table1.png" alt="Performance on V-STAR benchmark" style="width:100%; max-width:900px;">
               <p style="font-size:15px; color:#666; margin-top:8px;">
@@ -470,6 +367,7 @@
               </p>
             </div>
 
+            <h4 class="title is-4" style="margin-bottom: 10px;">General Video Understanding & Reasoning</h4>
             <div class="item pd-image" style="margin-bottom: 25px;">
               <img src="img/table2.png" alt="Performance on general video benchmarks" style="width:100%; max-width:900px;">
               <p style="font-size:15px; color:#666; margin-top:8px;">
@@ -477,10 +375,18 @@
               </p>
             </div>
 
-            <div class="item pd-image" style="margin-bottom: 10px;">
+            <div class="item pd-image" style="margin-bottom: 25px;">
               <img src="img/inf.png" alt="Inference efficiency comparison" style="width:100%; max-width:650px; margin: 0 auto;">
               <p style="font-size:15px; color:#666; margin-top:8px;">
                 <b>Figure.</b> Inference efficiency comparison. VisionCoach consistently outperforms both text-centric (Qwen2.5-VL, Video-R1) and tool-calling (EgoR1, LongVT-RL) baselines, while operating at substantially lower inference latency than external tool-based approaches.
+              </p>
+            </div>
+
+            <h4 class="title is-4" style="margin-bottom: 10px;">Qualitative Examples</h4>
+            <div class="item pd-image" style="margin-bottom: 10px;">
+              <img src="img/example1.png" alt="Qualitative examples of VisionCoach responses" style="width:100%; max-width:900px;">
+              <p style="font-size:15px; color:#666; margin-top:8px;">
+                <b>Qualitative examples.</b> Representative success cases where VisionCoach produces grounded and detailed video reasoning responses, illustrating how training-time visual prompting guides the model toward accurate spatio-temporal evidence and reduces hallucinations.
               </p>
             </div>
           </div>
@@ -496,12 +402,6 @@
       <div class="columns is-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3 has-text-centered">📈 Analysis</h2>
-
-          <div class="content has-text-justified">
-            <p style="font-size:18px; margin-bottom:25px;">
-              VisionCoach delivers strong spatio-temporal reasoning on the V-STAR benchmark, achieves competitive performance across diverse general video understanding and reasoning benchmarks, and provides robust zero-shot temporal grounding on Charades-STA. Spatio-temporal attention visualizations show that training-time visual prompting sharpens grounding both temporally—by focusing attention on the correct key frames—and spatially—by concentrating on regions corresponding to queried visual attributes while suppressing irrelevant areas. Inference-time comparisons further reveal that VisionCoach consistently outperforms both text-centric and tool-calling baselines while operating at substantially lower latency than external tool-based approaches. Finally, statistics of its adaptive visual prompting mechanism indicate that a large portion of samples are identified as hard, and that dynamically selected visual prompts for these hard cases reliably yield substantial reward gains, confirming that adaptive visual prompting provides effective guidance and rich training signals for challenging instances.
-            </p>
-          </div>
 
           <div class="columns is-multiline">
             <div class="column is-full">
