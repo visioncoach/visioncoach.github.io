@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!-- Meta tags for social media banners -->
   <meta name="description" content="VisionCoach: Reinforcing Grounded Video Reasoning via Visual-Perception Prompting">
   <meta property="og:title" content="VisionCoach: Reinforcing Grounded Video Reasoning via Visual-Perception Prompting"/>
   <meta property="og:description" content="Input-adaptive RL framework that improves spatio-temporal grounding through visual prompting as training-time guidance for video reasoning."/>
@@ -19,9 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>VisionCoach</title>
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-  rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
@@ -40,230 +37,611 @@
 
   <link rel="stylesheet" href="./static/css/twentytwenty.css">
   <style>
+    :root {
+      /* 남색 (Navy) */
+      --navy-950: #070d1a;
+      --navy-900: #0c1629;
+      --navy-800: #11203d;
+      --navy-700: #1a3058;
+      --navy-600: #234070;
+      --navy-500: #2c5088;
+
+      /* 고동색 (Copper) */
+      --copper-700: #7a3e1a;
+      --copper-600: #96501f;
+      --copper-500: #b5651d;
+      --copper-400: #c8823e;
+      --copper-300: #d9a56a;
+      --copper-200: #e8c9a0;
+      --copper-100: #f5e6d0;
+
+      /* 하늘색 (Sky) */
+      --sky-600: #4aa3c5;
+      --sky-500: #5fb8d9;
+      --sky-400: #7ec8e3;
+      --sky-300: #a0d8ec;
+      --sky-200: #c4e8f4;
+      --sky-100: #e4f3f9;
+      --sky-50: #f0f8fc;
+
+      /* Neutrals — warm-tinted toward navy */
+      --warm-50: #f7f8fa;
+      --warm-100: #eef0f4;
+      --warm-200: #dde1e8;
+      --warm-300: #c3c9d4;
+      --warm-500: #6b7280;
+      --warm-700: #3d4555;
+      --warm-800: #262d3a;
+      --warm-900: #171c28;
+    }
+
+    * { box-sizing: border-box; }
+
     body, html {
-      font-family: 'Sora', sans-serif !important;
-      font-weight: 500 !important;
+      font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      font-weight: 400 !important;
+      color: var(--warm-800);
     }
 
     h1, h2, h3, h4, h5, h6 {
-      font-family: 'Sora', sans-serif !important;
+      font-family: 'Playfair Display', Georgia, serif !important;
       font-weight: 700 !important;
     }
 
-    p, span, a, li, td, th, div {
-      font-family: 'Sora', sans-serif !important;
-      font-weight: 500 !important;
+    p, span, li, td, th, div {
+      font-family: 'Source Sans 3', -apple-system, sans-serif !important;
     }
 
-    .custom-slider-container {
-        width: 100%;
-        max-width: 900px;
-        margin: 0 auto;
-        overflow: hidden;
-        position: relative;
+    a {
+      font-family: 'Source Sans 3', sans-serif !important;
     }
 
-    .custom-slider {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
+    /* ═══════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════ */
+    .hero-section {
+      background: linear-gradient(160deg, var(--navy-950) 0%, var(--navy-800) 45%, var(--navy-600) 100%);
+      padding: 90px 0 70px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .custom-slide {
-        min-width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -60px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(126, 200, 227, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
     }
 
-    .task-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 15px;
-        padding: 20px;
-        margin: 10px;
-        color: white;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: 10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(181, 101, 29, 0.06) 0%, transparent 70%);
+      border-radius: 50%;
     }
 
-    .task-card.past {
-        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif !important;
+      font-size: 2.2rem !important;
+      font-weight: 700 !important;
+      color: #fff !important;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
     }
 
-    .task-card.present {
-        background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+    .hero-title .highlight {
+      color: var(--sky-400);
+      font-style: italic;
+      font-weight: 700;
     }
 
-    .task-card.proactive {
-        background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+    .hero-authors {
+      margin-top: 28px;
     }
 
-    .contribution-box {
-        background: #f5f5f5;
-        border-left: 4px solid #667eea;
-        padding: 15px 20px;
-        margin: 10px 0;
-        border-radius: 0 10px 10px 0;
+    .hero-authors a {
+      color: var(--sky-300) !important;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05rem;
+      transition: color 0.2s;
     }
 
-    .benchmark-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        font-size: 14px;
+    .hero-authors a:hover {
+      color: #fff !important;
+      text-decoration: underline;
     }
 
-    .benchmark-table th, .benchmark-table td {
-        border: 1px solid #ddd;
-        padding: 12px 8px;
-        text-align: center;
+    .hero-authors .author-block {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 1.05rem;
     }
 
-    .benchmark-table th {
-        background-color: #667eea;
-        color: white;
+    .hero-affiliation {
+      margin-top: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.95rem;
     }
 
-    .benchmark-table tr:nth-child(even) {
-        background-color: #f9f9f9;
+    .hero-affiliation .email {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.35);
     }
 
-    .benchmark-table tr:hover {
-        background-color: #f1f1f1;
+    .eccv-badge {
+      display: inline-block;
+      margin-top: 18px;
+      border: 1px solid var(--copper-400);
+      color: var(--copper-300) !important;
+      font-family: 'Playfair Display', serif !important;
+      font-style: italic;
+      font-weight: 600 !important;
+      font-size: 0.9rem;
+      padding: 6px 24px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
     }
 
-    .highlight-row {
-        background-color: #e8f4fd !important;
-        font-weight: bold;
+    .hero-buttons {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .text-with-margin {
-      margin-top: 10px;
-      margin-bottom: 50px;
+    .hero-buttons .button.is-dark {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-family: 'Source Sans 3', sans-serif !important;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
     }
 
-    .gaze-icon {
-      font-size: 2rem;
+    .hero-buttons .button.is-dark:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: var(--copper-400);
+      color: var(--copper-200);
+      transform: translateY(-1px);
+    }
+
+    /* ═══════════════════════════════════════
+       VIDEO
+       ═══════════════════════════════════════ */
+    .video-section {
+      background: var(--warm-50);
+      padding: 50px 0;
+    }
+
+    .video-frame {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(12, 22, 41, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--warm-200);
+    }
+
+    .video-frame video {
+      display: block;
+      width: 100%;
+    }
+
+    /* ═══════════════════════════════════════
+       TL;DR
+       ═══════════════════════════════════════ */
+    .tldr-section {
+      background: #fff;
+      padding: 50px 0;
+    }
+
+    .tldr-card {
+      background: var(--sky-50);
+      border: 1px solid var(--sky-200);
+      border-left: 4px solid var(--copper-500);
+      border-radius: 2px 12px 12px 2px;
+      padding: 32px 36px;
+    }
+
+    .tldr-card h3 {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.15rem;
+      font-weight: 700 !important;
+      color: var(--navy-700) !important;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    .tldr-card p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--warm-700);
+    }
+
+    .tldr-card b {
+      color: var(--navy-700);
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION COMMON
+       ═══════════════════════════════════════ */
+    .section-heading {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.75rem;
+      font-weight: 700 !important;
+      color: var(--navy-800) !important;
+      margin-bottom: 8px;
+    }
+
+    .heading-rule {
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--copper-500), var(--copper-300));
+      border-radius: 2px;
+      margin: 0 auto 36px;
+      border: none;
+    }
+
+    .heading-rule-left {
+      margin: 0 0 36px 0;
+    }
+
+    .bg-cream {
+      background: var(--warm-50);
+    }
+
+    .bg-white {
+      background: #fff;
+    }
+
+    .bg-sky {
+      background: linear-gradient(180deg, var(--sky-50) 0%, #fff 100%);
+    }
+
+    .bg-navy-light {
+      background: linear-gradient(180deg, #f0f3f8 0%, var(--warm-50) 100%);
+    }
+
+    /* ═══════════════════════════════════════
+       ABSTRACT
+       ═══════════════════════════════════════ */
+    .abstract-text {
+      font-size: 1.08rem;
+      line-height: 1.85;
+      color: var(--warm-700);
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    .abstract-text b {
+      color: var(--navy-700);
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════════════
+       METHOD
+       ═══════════════════════════════════════ */
+    .method-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 44px;
+      text-align: left;
+    }
+
+    .method-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 20px 24px;
+      background: #fff;
+      border: 1px solid var(--warm-200);
+      border-radius: 10px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .method-step:hover {
+      border-color: var(--copper-300);
+      box-shadow: 0 4px 16px rgba(181, 101, 29, 0.06);
+    }
+
+    .step-num {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.3rem;
+      font-weight: 700 !important;
+      color: var(--copper-500);
+      min-width: 28px;
+      line-height: 1.3;
+    }
+
+    .step-body h4 {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.05rem;
+      font-weight: 700 !important;
+      color: var(--navy-700) !important;
+      margin-bottom: 4px;
+    }
+
+    .step-body p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--warm-500);
+      margin: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       IMAGE CARDS
+       ═══════════════════════════════════════ */
+    .fig-card {
+      background: #fff;
+      border: 1px solid var(--warm-200);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 28px;
+      transition: box-shadow 0.3s;
+    }
+
+    .fig-card:hover {
+      box-shadow: 0 6px 24px rgba(12, 22, 41, 0.07);
+    }
+
+    .fig-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .fig-caption {
+      padding: 16px 24px;
+      background: var(--warm-50);
+      border-top: 1px solid var(--warm-100);
+    }
+
+    .fig-caption p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--warm-500);
+      margin: 0;
+    }
+
+    .fig-caption b {
+      color: var(--copper-600);
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════════════
+       RESULTS HIGHLIGHTS
+       ═══════════════════════════════════════ */
+    .highlights-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 32px 0 44px;
+    }
+
+    .highlight-card {
+      background: linear-gradient(150deg, var(--navy-800) 0%, var(--navy-600) 100%);
+      border-radius: 12px;
+      padding: 28px 22px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle at top right, rgba(181, 101, 29, 0.15), transparent 70%);
+    }
+
+    .highlight-card .hl-icon {
+      font-size: 1.4rem;
       margin-bottom: 10px;
     }
 
-    .gradient-text {
-      background: linear-gradient(90deg, #2563eb, #3b82f6, #06b6d4) !important;
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      background-clip: text !important;
-      font-family: 'Sora', sans-serif !important;
+    .highlight-card h4 {
+      font-family: 'Playfair Display', serif !important;
+      color: var(--copper-200) !important;
+      font-size: 0.95rem;
       font-weight: 700 !important;
-      font-size: 1.15em !important;
-      letter-spacing: 0.5px !important;
-      display: inline-block !important;
+      margin-bottom: 6px;
+      font-style: italic;
     }
 
-    .publication-title {
-      font-family: 'Sora', sans-serif !important;
-      font-weight: 600 !important;
+    .highlight-card p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      margin: 0;
     }
 
+    /* ═══════════════════════════════════════
+       SUBSECTION TITLES
+       ═══════════════════════════════════════ */
+    .sub-heading {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 1.15rem;
+      font-weight: 700 !important;
+      color: var(--navy-700) !important;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--copper-200);
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    /* ═══════════════════════════════════════
+       BIBTEX
+       ═══════════════════════════════════════ */
+    .bibtex-section {
+      background: var(--navy-900);
+      padding: 64px 0;
+    }
+
+    .bibtex-section .section-heading {
+      color: #fff !important;
+    }
+
+    .bibtex-section .heading-rule {
+      background: linear-gradient(90deg, var(--copper-400), var(--copper-300));
+    }
+
+    .bibtex-block {
+      background: var(--navy-950);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 28px 32px;
+      overflow-x: auto;
+    }
+
+    .bibtex-block pre {
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0;
+    }
+
+    .bibtex-block code {
+      color: var(--sky-300) !important;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      background: transparent !important;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ */
+    .site-footer {
+      background: var(--navy-950);
+      padding: 36px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .site-footer p {
+      color: rgba(255, 255, 255, 0.3) !important;
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .site-footer a {
+      color: var(--copper-300) !important;
+      text-decoration: none;
+    }
+
+    .site-footer a:hover {
+      color: var(--copper-200) !important;
+      text-decoration: underline;
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .hero-section { padding: 56px 0 48px; }
+      .hero-title { font-size: 1.5rem !important; }
+      .highlights-row { grid-template-columns: 1fr; }
+      .tldr-card { padding: 24px 22px; }
+      .method-step { flex-direction: column; gap: 8px; }
+    }
   </style>
 </head>
 <body>
 
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <!-- title -->
-            <h1 class="title is-3 publication-title">
-              ⚽️ <span class="gradient-text">VisionCoach</span>: Reinforcing Grounded Video<br>
-              Reasoning via Visual-Perception Prompting
-            </h1>
-            
-            <!-- authors -->
-            <div class="is-size-5 publication-authors">
-              <span class="author-block">
-                <a href="https://daeunni.github.io/" target="_blank">Daeun Lee</a>,
-              </span> &nbsp;
-              <span class="author-block">
-                <a href="https://yui010206.github.io/" target="_blank">Shoubin Yu</a>,
-              </span> &nbsp;
-              <span class="author-block">
-                <a href="https://zhangyuejoslin.github.io/" target="_blank">Yue Zhang</a>,
-              </span> &nbsp;
-              <span class="author-block">
-                <a href="https://www.cs.unc.edu/~mbansal/" target="_blank">Mohit Bansal</a>
-              </span>
-            </div>
-            
-            <!-- affiliations -->
-            <div class="is-size-5 publication-authors" style="margin-top:10px;">
-              <span class="author-block">University of North Carolina, Chapel Hill</span><br>
-              <span class="author-block" style="font-size: 0.9em; color: #666;">{daeun, shoubin, yuezhan, mbansal}@cs.unc.edu</span>
-            </div>
+  <!-- ════ HERO ════ -->
+  <section class="hero-section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title hero-title">
+            <span class="highlight">VisionCoach</span>: Reinforcing Grounded Video<br>
+            Reasoning via Visual-Perception Prompting
+          </h1>
 
-            <div class="is-size-5 publication-authors" style="margin-top:12px;">
-              <span class="author-block" style="font-weight: 700; color: #2563eb;">Accepted to ECCV 2026</span>
-            </div>
+          <div class="hero-authors is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://daeunni.github.io/" target="_blank">Daeun Lee</a>,
+            </span> &nbsp;
+            <span class="author-block">
+              <a href="https://yui010206.github.io/" target="_blank">Shoubin Yu</a>,
+            </span> &nbsp;
+            <span class="author-block">
+              <a href="https://zhangyuejoslin.github.io/" target="_blank">Yue Zhang</a>,
+            </span> &nbsp;
+            <span class="author-block">
+              <a href="https://www.cs.unc.edu/~mbansal/" target="_blank">Mohit Bansal</a>
+            </span>
+          </div>
 
-            <!-- Paper / Code / Model links -->
-            <div style="margin-top: 20px;">
-              <span class="link-block">
-                <a href="https://arxiv.org/pdf/2603.14659" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
+          <div class="hero-affiliation">
+            <span>University of North Carolina, Chapel Hill</span><br>
+            <span class="email">{daeun, shoubin, yuezhan, mbansal}@cs.unc.edu</span>
+          </div>
 
-              <!-- Code link -->
-              <span class="link-block">
-                <a href="https://github.com/daeunni/VisionCoach" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                </a>
-              </span>
+          <div>
+            <span class="eccv-badge">Accepted to ECCV 2026</span>
+          </div>
 
-              <!-- Model link -->
-              <span class="link-block">
-                <a href="https://huggingface.co/daeunni/VisionCoach-7B" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="fas fa-cube"></i>
-                  </span>
-                  <span>Model</span>
-                </a>
-              </span>
-            </div>
-
+          <div class="hero-buttons">
+            <span class="link-block">
+              <a href="https://arxiv.org/pdf/2603.14659" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/daeunni/VisionCoach" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://huggingface.co/daeunni/VisionCoach-7B" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-cube"></i></span>
+                <span>Model</span>
+              </a>
+            </span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Demo Video -->
-  <div class="container is-max-desktop" style="margin-top: 20px;">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <video id="demo-video" width="100%" autoplay loop muted playsinline controls style="border-radius: 10px;">
-          <source src="video_test.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
-  </div>
-
-  <!-- TLDR -->
-  <section class="section" style="padding: 1.5rem 1.5rem;">
+  <!-- ════ VIDEO ════ -->
+  <section class="video-section">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
-          <div style="background: linear-gradient(135deg, #667eea22 0%, #764ba222 100%); border-radius: 15px; padding: 25px 30px; border-left: 5px solid #667eea;">
-            <h3 style="margin-bottom: 15px; font-size: 1.3rem;">📌 TL;DR</h3>
-            <p style="font-size: 17px; margin: 0; line-height: 1.6;">
-              <b>VisionCoach</b> is an input-adaptive RL framework that improves spatio-temporal grounding in video reasoning through training-time visual prompting. 
-              Visual prompts are selectively applied to challenging inputs to amplify question-relevant evidence and suppress distractors, 
+          <div class="video-frame">
+            <video id="demo-video" width="100%" autoplay loop muted playsinline controls>
+              <source src="video_test.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ TL;DR ════ -->
+  <section class="tldr-section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="tldr-card">
+            <h3>TL;DR</h3>
+            <p>
+              <b>VisionCoach</b> is an input-adaptive RL framework that improves spatio-temporal grounding in video reasoning through training-time visual prompting.
+              Visual prompts are selectively applied to challenging inputs to amplify question-relevant evidence and suppress distractors,
               enabling grounded reasoning directly on raw videos without external tools at inference.
             </p>
           </div>
@@ -272,21 +650,22 @@
     </div>
   </section>
 
-  <!-- Paper abstract -->
-  <section class="section hero is-light">
+  <!-- ════ ABSTRACT ════ -->
+  <section class="section bg-sky" style="padding: 64px 1.5rem;">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p style="font-size:18px;">
-              Video reasoning requires models to locate and track question-relevant evidence across frames. 
-              While reinforcement learning (RL) with verifiable rewards improves accuracy, it still struggles to achieve <b>reliable spatio-temporal grounding</b> during the reasoning process. 
-              Moreover, improving grounding typically relies on scaled training data or inference-time perception tools, which increases annotation cost or computational cost. 
-              To address this challenge, we propose <b>VisionCoach</b>, an input-adaptive RL framework that improves spatio-temporal grounding through <b>visual prompting as training-time guidance</b>. 
-              During RL training, visual prompts are selectively applied to challenging inputs to amplify question-relevant evidence and suppress distractors. 
-              The model then internalizes these improvements through <b>self-distillation</b>, enabling grounded reasoning directly on raw videos without visual prompting at inference. 
-              VisionCoach consists of two components: (1) <b>Visual Prompt Selector</b>, which predicts appropriate prompt types conditioned on the video and question, and (2) <b>Spatio-Temporal Reasoner</b>, optimized with RL under visual prompt guidance and object-aware grounding rewards that enforce object identity consistency and multi-region bounding-box IoU. 
+          <h2 class="section-heading">Abstract</h2>
+          <hr class="heading-rule">
+          <div class="abstract-text">
+            <p>
+              Video reasoning requires models to locate and track question-relevant evidence across frames.
+              While reinforcement learning (RL) with verifiable rewards improves accuracy, it still struggles to achieve <b>reliable spatio-temporal grounding</b> during the reasoning process.
+              Moreover, improving grounding typically relies on scaled training data or inference-time perception tools, which increases annotation cost or computational cost.
+              To address this challenge, we propose <b>VisionCoach</b>, an input-adaptive RL framework that improves spatio-temporal grounding through <b>visual prompting as training-time guidance</b>.
+              During RL training, visual prompts are selectively applied to challenging inputs to amplify question-relevant evidence and suppress distractors.
+              The model then internalizes these improvements through <b>self-distillation</b>, enabling grounded reasoning directly on raw videos without visual prompting at inference.
+              VisionCoach consists of two components: (1) <b>Visual Prompt Selector</b>, which predicts appropriate prompt types conditioned on the video and question, and (2) <b>Spatio-Temporal Reasoner</b>, optimized with RL under visual prompt guidance and object-aware grounding rewards that enforce object identity consistency and multi-region bounding-box IoU.
               Extensive experiments demonstrate that VisionCoach achieves <b>state-of-the-art performance</b> across diverse video reasoning, video understanding, and temporal grounding benchmarks (V-STAR, VideoMME, World-Sense, VideoMMMU, PerceptionTest, and Charades-STA), while maintaining a single efficient inference pathway without external tools.
             </p>
           </div>
@@ -294,172 +673,193 @@
       </div>
     </div>
   </section>
-  <!-- End paper abstract -->
 
-
-  <!-- Framework Overview & Contributions removed to avoid repetition -->
-
-
-  <!-- Method -->
-  <section class="section hero">
+  <!-- ════ METHOD ════ -->
+  <section class="section bg-white" style="padding: 64px 1.5rem;">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h3 class="title is-3">🔧 Method Overview</h3>
-          <div class="content has-text-justified">
-            <p style="font-size:18px; margin-top:20px;">
-              VisionCoach training pipeline:
-              <br><br>
-              <b>(1) Visual Prompt Selector:</b> Takes video and question as input to predict appropriate visual prompt types. Applies prompts selectively only to challenging inputs.
-              <br><br>
-              <b>(2) Spatio-Temporal Reasoner:</b> Optimized with RL under visual prompt guidance, using object identity consistency and multi-region bounding-box IoU as rewards.
-              <br><br>
-              <b>(3) Self-Distillation:</b> The model internalizes improved reasoning from visual prompts, enabling grounded reasoning on raw videos without external tools at inference.
-            </p>      
+          <h2 class="section-heading">Method Overview</h2>
+          <hr class="heading-rule">
+
+          <div class="method-steps">
+            <div class="method-step">
+              <span class="step-num">1.</span>
+              <div class="step-body">
+                <h4>Visual Prompt Selector</h4>
+                <p>Takes video and question as input to predict appropriate visual prompt types. Applies prompts selectively only to challenging inputs.</p>
+              </div>
+            </div>
+            <div class="method-step">
+              <span class="step-num">2.</span>
+              <div class="step-body">
+                <h4>Spatio-Temporal Reasoner</h4>
+                <p>Optimized with RL under visual prompt guidance, using object identity consistency and multi-region bounding-box IoU as rewards.</p>
+              </div>
+            </div>
+            <div class="method-step">
+              <span class="step-num">3.</span>
+              <div class="step-body">
+                <h4>Self-Distillation</h4>
+                <p>The model internalizes improved reasoning from visual prompts, enabling grounded reasoning on raw videos without external tools at inference.</p>
+              </div>
+            </div>
           </div>
 
-          <div class="content has-text-centered" style="margin-top: 10px;">
-            <div class="item pd-image" style="margin-bottom: 20px;">
-              <img src="img/method.png" alt="Overall method overview" style="width:100%; max-width:900px;">
-            </div>
-            <div class="item pd-image">
-              <img src="img/algo.png" alt="Reinforcement learning and visual prompting algorithm" style="width:100%; max-width:900px;">
-            </div>
+          <div class="fig-card">
+            <img src="img/method.png" alt="Overall method overview">
           </div>
-
+          <div class="fig-card">
+            <img src="img/algo.png" alt="Reinforcement learning and visual prompting algorithm">
+          </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- End Method -->
 
+  <!-- ════ MAIN RESULTS ════ -->
+  <section class="section bg-cream" style="padding: 64px 1.5rem;">
+    <div class="container is-max-desktop">
+      <div class="has-text-centered">
+        <h2 class="section-heading">Main Results</h2>
+        <hr class="heading-rule">
+      </div>
 
-  <!-- Main Results -->
-  <section class="hero is-small">
-    <div class="hero-body">
-      <div class="container is-max-desktop" style="margin-top:5px;">
-        <div class="section-title has-text-centered">
-          <h2 class="title is-3">📊 Main Results</h2>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <p style="font-size: 1.05rem; line-height: 1.75; color: var(--warm-700); text-align: center;">
+            VisionCoach achieves <b style="color: var(--navy-700);">state-of-the-art performance</b> across diverse benchmarks including V-STAR, VideoMME, World-Sense, VideoMMMU, PerceptionTest, and Charades-STA.
+          </p>
+
+          <div class="highlights-row">
+            <div class="highlight-card">
+              <div class="hl-icon">🎯</div>
+              <h4>Visual Prompting</h4>
+              <p>Improved spatio-temporal grounding via training-time visual prompting</p>
+            </div>
+            <div class="highlight-card">
+              <div class="hl-icon">⚡</div>
+              <h4>Efficient Inference</h4>
+              <p>No external tools needed at inference through self-distillation</p>
+            </div>
+            <div class="highlight-card">
+              <div class="hl-icon">🏆</div>
+              <h4>Grounding Rewards</h4>
+              <p>Enhanced object identity consistency and IoU via object-aware rewards</p>
+            </div>
+          </div>
         </div>
-           
-        <p class="text-with-margin" style="font-size:18px;">
-          VisionCoach achieves <b>state-of-the-art performance</b> across diverse benchmarks including V-STAR, VideoMME, World-Sense, VideoMMMU, PerceptionTest, and Charades-STA.
-          <br><br>
-          Key results:
-          <br>• Improved spatio-temporal grounding via training-time visual prompting
-          <br>• No external tools at inference through self-distillation
-          <br>• Enhanced object identity consistency and IoU via object-aware grounding rewards
-        </p>
       </div>
     </div>
   </section>
 
-
-  <!-- Results -->
-  <section class="section hero is-light">
+  <!-- ════ RESULTS DETAIL ════ -->
+  <section class="section bg-white" style="padding: 64px 1.5rem;">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3">📊 Results</h2>
+          <h2 class="section-heading">Results</h2>
+          <hr class="heading-rule">
 
           <div class="content">
-            <h4 class="title is-4" style="margin-bottom: 10px;">V-STAR (Spatio-Temporal Reasoning)</h4>
-            <div class="item pd-image" style="margin-bottom: 25px;">
-              <img src="img/table1.png" alt="Performance on V-STAR benchmark" style="width:100%; max-width:900px;">
-              <p style="font-size:15px; color:#666; margin-top:8px;">
-                <b>Table 1.</b> Performance on the V-STAR benchmark. VisionCoach achieves strong spatio-temporal reasoning across overall dimensions.
-              </p>
+            <h4 class="sub-heading">V-STAR (Spatio-Temporal Reasoning)</h4>
+            <div class="fig-card">
+              <img src="img/table1.png" alt="Performance on V-STAR benchmark">
+              <div class="fig-caption">
+                <p><b>Table 1.</b> Performance on the V-STAR benchmark. VisionCoach achieves strong spatio-temporal reasoning across overall dimensions.</p>
+              </div>
             </div>
 
-            <h4 class="title is-4" style="margin-bottom: 10px;">General Video Understanding & Reasoning</h4>
-            <div class="item pd-image" style="margin-bottom: 25px;">
-              <img src="img/table2.png" alt="Performance on general video benchmarks" style="width:100%; max-width:900px;">
-              <p style="font-size:15px; color:#666; margin-top:8px;">
-                <b>Table 2.</b> Performance across different general video understanding and reasoning benchmarks. * indicates our implementation performance.
-              </p>
+            <h4 class="sub-heading" style="margin-top: 36px;">General Video Understanding &amp; Reasoning</h4>
+            <div class="fig-card">
+              <img src="img/table2.png" alt="Performance on general video benchmarks">
+              <div class="fig-caption">
+                <p><b>Table 2.</b> Performance across different general video understanding and reasoning benchmarks. * indicates our implementation performance.</p>
+              </div>
             </div>
 
-            <div class="item pd-image" style="margin-bottom: 25px;">
-              <img src="img/inf.png" alt="Inference efficiency comparison" style="width:100%; max-width:650px; margin: 0 auto;">
-              <p style="font-size:15px; color:#666; margin-top:8px;">
-                <b>Figure.</b> Inference efficiency comparison. VisionCoach consistently outperforms both text-centric (Qwen2.5-VL, Video-R1) and tool-calling (EgoR1, LongVT-RL) baselines, while operating at substantially lower inference latency than external tool-based approaches.
-              </p>
+            <div class="fig-card" style="max-width: 650px; margin: 32px auto;">
+              <img src="img/inf.png" alt="Inference efficiency comparison">
+              <div class="fig-caption">
+                <p><b>Figure.</b> Inference efficiency comparison. VisionCoach consistently outperforms both text-centric and tool-calling baselines, while operating at substantially lower inference latency.</p>
+              </div>
             </div>
 
-            <h4 class="title is-4" style="margin-bottom: 10px;">Qualitative Examples</h4>
-            <div class="item pd-image" style="margin-bottom: 10px;">
-              <img src="img/example1.png" alt="Qualitative examples of VisionCoach responses" style="width:100%; max-width:900px;">
-              <p style="font-size:15px; color:#666; margin-top:8px;">
-                <b>Qualitative examples.</b> Representative success cases where VisionCoach produces grounded and detailed video reasoning responses, illustrating how training-time visual prompting guides the model toward accurate spatio-temporal evidence and reduces hallucinations.
-              </p>
+            <h4 class="sub-heading" style="margin-top: 36px;">Qualitative Examples</h4>
+            <div class="fig-card">
+              <img src="img/example1.png" alt="Qualitative examples of VisionCoach responses">
+              <div class="fig-caption">
+                <p><b>Qualitative examples.</b> Representative success cases where VisionCoach produces grounded and detailed video reasoning responses, illustrating how training-time visual prompting guides accurate spatio-temporal evidence and reduces hallucinations.</p>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Analysis -->
-  <section class="section hero">
+  <!-- ════ ANALYSIS ════ -->
+  <section class="section bg-navy-light" style="padding: 64px 1.5rem;">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
-          <h2 class="title is-3 has-text-centered">📈 Analysis</h2>
+          <div class="has-text-centered">
+            <h2 class="section-heading">Analysis</h2>
+            <hr class="heading-rule">
+          </div>
 
-          <div class="columns is-multiline">
-            <div class="column is-full">
-              <div class="item pd-image" style="margin-bottom: 25px; text-align:center;">
-                <img src="img/attn.png" alt="Spatio-temporal attention visualization" style="width:100%; max-width:900px;">
-                <p style="font-size:15px; color:#666; margin-top:8px; text-align:left;">
-                  <b>Spatio-temporal attention map.</b> Visual prompting (VP) improves grounding in both temporal and spatial dimensions. The green box indicates the key frame, while the red box highlights the corresponding spatial region. Temporally, VP increases attention on the correct key frame containing the cowboy. Spatially, VP concentrates attention on the region corresponding to the queried visual attributes (e.g., the cowboy wearing specific clothing), while suppressing irrelevant regions.
-                </p>
-              </div>
-            </div>
-
-            <div class="column is-full">
-              <div class="item pd-image" style="margin-bottom: 10px; text-align:center;">
-                <img src="img/qual.png" alt="Statistics of adaptive visual prompting" style="width:100%; max-width:900px;">
-                <p style="font-size:15px; color:#666; margin-top:8px; text-align:left;">
-                  <b>Statistics of adaptive visual prompting.</b> We analyze the distribution of designated sample difficulty (Easy vs. Hard), the visual prompts selected for hard samples by VP-SELECTOR, and the resulting reward gain from each prompt. 58% of samples are identified as hard, and for these hard instances VP-SELECTOR dynamically chooses among multiple visual prompting types. Applying these prompts consistently leads to reward improvements, with gains ranging from +56% to +66% across prompt types, indicating that adaptive visual prompting provides effective guidance and meaningful training signals on challenging examples.
-                </p>
-              </div>
+          <div class="fig-card">
+            <img src="img/attn.png" alt="Spatio-temporal attention visualization">
+            <div class="fig-caption">
+              <p><b>Spatio-temporal attention map.</b> Visual prompting (VP) improves grounding in both temporal and spatial dimensions. The green box indicates the key frame, while the red box highlights the corresponding spatial region. Temporally, VP increases attention on the correct key frame. Spatially, VP concentrates attention on the region corresponding to the queried visual attributes, while suppressing irrelevant regions.</p>
             </div>
           </div>
 
+          <div class="fig-card">
+            <img src="img/qual.png" alt="Statistics of adaptive visual prompting">
+            <div class="fig-caption">
+              <p><b>Statistics of adaptive visual prompting.</b> 58% of samples are identified as hard, and for these hard instances VP-SELECTOR dynamically chooses among multiple visual prompting types. Applying these prompts consistently leads to reward improvements, with gains ranging from +56% to +66% across prompt types, indicating that adaptive visual prompting provides effective guidance on challenging examples.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-
-  <!-- BibTeX citation -->
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
-      <pre><code>@misc{lee2026visioncoachreinforcinggroundedvideo,
-        title={VisionCoach: Reinforcing Grounded Video Reasoning via Visual-Perception Prompting}, 
-        author={Daeun Lee and Shoubin Yu and Yue Zhang and Mohit Bansal},
-        year={2026},
-        eprint={2603.14659},
-        archivePrefix={arXiv},
-        primaryClass={cs.CV},
-        url={https://arxiv.org/abs/2603.14659}, 
-  }</code></pre>
+  <!-- ════ BIBTEX ════ -->
+  <section class="bibtex-section" id="BibTeX">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          <div class="has-text-centered">
+            <h2 class="section-heading">BibTeX</h2>
+            <hr class="heading-rule">
+          </div>
+          <div class="bibtex-block">
+            <pre><code>@misc{lee2026visioncoachreinforcinggroundedvideo,
+      title={VisionCoach: Reinforcing Grounded Video Reasoning via Visual-Perception Prompting},
+      author={Daeun Lee and Shoubin Yu and Yue Zhang and Mohit Bansal},
+      year={2026},
+      eprint={2603.14659},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2603.14659},
+}</code></pre>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-
-  <footer class="footer">
+  <!-- ════ FOOTER ════ -->
+  <footer class="site-footer">
     <div class="container">
       <div class="columns is-centered">
-        <div class="column is-8">
-          <div class="content">
-            <p>
-              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-              You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-            </p>
-          </div>
+        <div class="column is-8 has-text-centered">
+          <p>
+            Built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> adopted from <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
+            Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
+          </p>
         </div>
       </div>
     </div>
@@ -481,4 +881,3 @@
 
 </body>
 </html>
-
